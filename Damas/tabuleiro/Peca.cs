@@ -9,11 +9,11 @@ namespace Damas.tabuleiro
         public int QtdMovimentos { get; set; }
         public Tabuleiro Tab { get; set; }
 
-        public Peca(Posicao posicao, Cor cor, int qtdMovimentos, Tabuleiro tab)
+        public Peca(Tabuleiro tab, Cor cor)
         {
-            Posicao = posicao;
+            Posicao = null;
             Cor = cor;
-            QtdMovimentos = qtdMovimentos;
+            QtdMovimentos = 0;
             Tab = tab;
         }
     }
