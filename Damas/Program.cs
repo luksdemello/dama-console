@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Damas.tabuleiro;
+using System;
 
 namespace Damas
 {
@@ -6,7 +7,9 @@ namespace Damas
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Tabuleiro tab = new Tabuleiro(10, 10);
+
+            Tela.ImprimeTabuleiro(tab);
         }
     }
 }
