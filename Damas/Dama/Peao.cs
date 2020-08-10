@@ -11,7 +11,7 @@ namespace Damas.Dama
 
         public override string ToString()
         {
-            return "O";
+            return "o";
         }
     }
 }
