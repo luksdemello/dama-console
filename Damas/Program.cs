@@ -9,20 +9,11 @@ namespace Damas
         static void Main(string[] args)
         {
 
-            try
-            {
-                Tabuleiro tab = new Tabuleiro(10, 10);
+            PosicaoDama pos = new PosicaoDama('c', 7);
 
-                tab.ColocarPeca(new Peao(tab, Cor.Branca), new Posicao(0, 0));
-                tab.ColocarPeca(new Peao(tab, Cor.Branca), new Posicao(3, 4));
-   
+            pos.ToPosicao();
 
-                Tela.ImprimeTabuleiro(tab);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            Console.WriteLine(pos.ToPosicao()); ;
             
         }
     }
