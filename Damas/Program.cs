@@ -8,12 +8,22 @@ namespace Damas
     {
         static void Main(string[] args)
         {
-            Tabuleiro tab = new Tabuleiro(10, 10);
 
-            tab.ColocarPeca(new Peao(tab, Cor.Branca), new Posicao(0, 0));
-            tab.ColocarPeca(new Peao(tab, Cor.Branca), new Posicao(3, 4));
+            try
+            {
+                Tabuleiro tab = new Tabuleiro(10, 10);
 
-            Tela.ImprimeTabuleiro(tab);
+                tab.ColocarPeca(new Peao(tab, Cor.Branca), new Posicao(0, 0));
+                tab.ColocarPeca(new Peao(tab, Cor.Branca), new Posicao(3, 4));
+   
+
+                Tela.ImprimeTabuleiro(tab);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
         }
     }
 }
