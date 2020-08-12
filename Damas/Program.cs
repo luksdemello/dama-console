@@ -16,29 +16,43 @@ namespace Damas
 
                 while (!partida.Terminada)
                 {
-                    Console.Clear();
-                    Tela.ImprimeTabuleiro(partida.Tab);
+                    try
+                    {
+                        Console.Clear();
+                        Tela.ImprimeTabuleiro(partida.Tab);
+                        Console.WriteLine();
+                        Console.WriteLine("Turno: " + partida.Turno);
+                        Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
+                        Console.WriteLine();
 
 
-                    Console.WriteLine();
-                    Console.Write("Origem: ");
-                    Posicao origem = Tela.LerPosicaoDama().ToPosicao();
+                        Console.WriteLine();
+                        Console.Write("Origem: ");
+                        Posicao origem = Tela.LerPosicaoDama().ToPosicao();
+                        partida.ValidarPosicaoOrigem(origem);
 
-                    bool[,] posicaoPossiveis = partida.Tab.Peca(origem).MovimentosPossiveis();
+                        bool[,] posicaoPossiveis = partida.Tab.Peca(origem).MovimentosPossiveis();
 
-                    Console.Clear();
-                    Tela.ImprimeTabuleiro(partida.Tab, posicaoPossiveis);
+                        Console.Clear();
+                        Tela.ImprimeTabuleiro(partida.Tab, posicaoPossiveis);
 
-                    Console.WriteLine();
-                    Console.Write("Destino: ");
-                    Posicao destino = Tela.LerPosicaoDama().ToPosicao();
+                        Console.WriteLine();
+                        Console.Write("Destino: ");
+                        Posicao destino = Tela.LerPosicaoDama().ToPosicao();
+                        partida.ValidarPosicaoDestino(origem, destino);
 
-                    partida.ExecutaMovimento(origem, destino);
+                        partida.RealizaJogada(origem, destino);
+                    }
+                    catch (TabException e)
+                    {
+                        Console.WriteLine("Error: " + e.Message);
+                        Console.ReadLine();
+                    }
                 }
 
                 
             }
-            catch (Exception e)
+            catch (TabException e)
             {
                 Console.WriteLine(e.Message);
             }

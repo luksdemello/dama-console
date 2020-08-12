@@ -7,8 +7,8 @@ namespace Damas.Dama
     class PartidaDama
     {
         public Tabuleiro Tab { get; private set; }
-        private int Turno;
-        private Cor JogadorAtual;
+        public int Turno { get; private set; }
+        public Cor JogadorAtual { get; private set; }
         public bool Terminada { get; private set; }
 
         public PartidaDama()
@@ -26,6 +26,49 @@ namespace Damas.Dama
             p.ImcrementarMovimentos();
             Peca pecaCapturada = Tab.RetirarPeca(destino);
             Tab.ColocarPeca(p, destino);
+        }
+
+        public void RealizaJogada(Posicao origem, Posicao destino)
+        {
+            ExecutaMovimento(origem, destino);
+            Turno++;
+            MudaJogador();
+        }
+
+        public void ValidarPosicaoOrigem(Posicao pos)
+        {
+            if (Tab.Peca(pos) == null)
+            {
+                throw new TabException("There is no piece in the chosen position");
+            }
+            if (JogadorAtual != Tab.Peca(pos).Cor)
+            {
+                throw new TabException("The piece chosen is not your!");
+            }
+            if (!Tab.Peca(pos).ExisteMovimentosPossiveis())
+            {
+                throw new TabException("There is no possible movements for this piece!");
+            }
+        }
+
+        public void ValidarPosicaoDestino(Posicao origem, Posicao destino)
+        {
+            if (!Tab.Peca(origem).PodeMoverPara(destino))
+            {
+                throw new TabException("Invalid target position!");
+            }
+        }
+
+        private void MudaJogador()
+        {
+            if (JogadorAtual == Cor.Branca)
+            {
+                JogadorAtual = Cor.Preta;
+            }
+            else
+            {
+                JogadorAtual = Cor.Branca;
+            }
         }
 
         private void ColocarPecas()
