@@ -2,7 +2,7 @@
 
 namespace Damas.tabuleiro
 {
-    class Peca
+    abstract class Peca
     {
         public Posicao Posicao { get; set; }
         public Cor Cor { get; set; }
@@ -21,5 +21,7 @@ namespace Damas.tabuleiro
         {
             QtdMovimentos++;
         }
+
+        public abstract bool[,] MovimentosPossiveis();
     }
 }

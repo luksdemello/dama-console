@@ -20,10 +20,16 @@ namespace Damas
                     Tela.ImprimeTabuleiro(partida.Tab);
 
 
-
+                    Console.WriteLine();
                     Console.Write("Origem: ");
                     Posicao origem = Tela.LerPosicaoDama().ToPosicao();
 
+                    bool[,] posicaoPossiveis = partida.Tab.Peca(origem).MovimentosPossiveis();
+
+                    Console.Clear();
+                    Tela.ImprimeTabuleiro(partida.Tab, posicaoPossiveis);
+
+                    Console.WriteLine();
                     Console.Write("Destino: ");
                     Posicao destino = Tela.LerPosicaoDama().ToPosicao();
 
