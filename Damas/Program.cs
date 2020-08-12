@@ -11,12 +11,26 @@ namespace Damas
 
             try
             {
-                Tabuleiro tab = new Tabuleiro(8, 8);
+                PartidaDama partida = new PartidaDama();
 
-                tab.ColocarPeca(new Peao(tab, Cor.Branca), new Posicao(0, 0));
-                tab.ColocarPeca(new Peao(tab, Cor.Preta), new Posicao(3, 4));
 
-                Tela.ImprimeTabuleiro(tab);
+                while (!partida.Terminada)
+                {
+                    Console.Clear();
+                    Tela.ImprimeTabuleiro(partida.Tab);
+
+
+
+                    Console.Write("Origem: ");
+                    Posicao origem = Tela.LerPosicaoDama().ToPosicao();
+
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.LerPosicaoDama().ToPosicao();
+
+                    partida.ExecutaMovimento(origem, destino);
+                }
+
+                
             }
             catch (Exception e)
             {

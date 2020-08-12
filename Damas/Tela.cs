@@ -1,5 +1,6 @@
 ﻿
 
+using Damas.Dama;
 using Damas.tabuleiro;
 using System;
 
@@ -42,6 +43,14 @@ namespace Damas
                 Console.Write(peca);
                 Console.ForegroundColor = aux;
             }
+        }
+
+        public static PosicaoDama LerPosicaoDama()
+        {
+            string s = Console.ReadLine();
+            char coluna = s[0];
+            int linha = int.Parse(s[1] + "");
+            return new PosicaoDama(coluna, linha);
         }
     }
 }
