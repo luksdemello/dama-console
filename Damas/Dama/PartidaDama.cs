@@ -88,18 +88,18 @@ namespace Damas.Dama
             Tab.ColocarPeca(new Peao(Tab, Cor.Branca), new PosicaoDama('h', 2).ToPosicao());
 
             //Pecas pretas
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('a', 6).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('a', 8).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('b', 7).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('c', 6).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('c', 8).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('d', 7).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('e', 6).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('e', 8).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('f', 7).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('g', 6).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('g', 8).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('h', 7).ToPosicao());
+            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('a', 7).ToPosicao());
+            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('b', 6).ToPosicao());
+            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('b', 8).ToPosicao());
+            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('c', 7).ToPosicao());
+            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('d', 6).ToPosicao());
+            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('d', 8).ToPosicao());
+            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('e', 7).ToPosicao());
+            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('f', 6).ToPosicao());
+            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('f', 8).ToPosicao());
+            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('g', 7).ToPosicao());
+            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('h', 6).ToPosicao());
+            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('h', 8).ToPosicao());
 
         }
     }
