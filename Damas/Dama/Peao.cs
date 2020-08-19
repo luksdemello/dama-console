@@ -26,6 +26,8 @@ namespace Damas.Dama
             return p == null;
         }
 
+   
+
         public override bool[,] MovimentosPossiveis()
         {
             bool[,] mat = new bool[Tab.Linhas, Tab.Colunas];
@@ -53,12 +55,15 @@ namespace Damas.Dama
                 if (Tab.PosicaoValida(new Posicao(Posicao.Linha - 1, Posicao.Coluna - 1)))
                 {
                     Posicao InimigoEsquerda = new Posicao(Posicao.Linha - 1, Posicao.Coluna - 1);
+                    
                     if (ExisteInimigo(InimigoEsquerda))
                     {
                         pos.DefinirValores(InimigoEsquerda.Linha - 1, InimigoEsquerda.Coluna - 1);
                         if(Tab.PosicaoValida(pos) && PodeMover(pos))
                         {
+                           
                             mat[pos.Linha, pos.Coluna] = true;
+                            
                         }
                     }
 

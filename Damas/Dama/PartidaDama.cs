@@ -1,6 +1,5 @@
 ﻿using Damas.tabuleiro;
-using System;
-
+using System.Collections.Generic;
 
 namespace Damas.Dama
 {
@@ -10,6 +9,8 @@ namespace Damas.Dama
         public int Turno { get; private set; }
         public Cor JogadorAtual { get; private set; }
         public bool Terminada { get; private set; }
+        private HashSet<Peca> Pecas;
+        public HashSet<Peca> Capturadas;
 
         public PartidaDama()
         {
@@ -17,6 +18,8 @@ namespace Damas.Dama
             Turno = 1;
             JogadorAtual = Cor.Branca;
             Terminada = false;
+            Pecas = new HashSet<Peca>();
+            Capturadas = new HashSet<Peca>();
             ColocarPecas();
         }
 
@@ -24,15 +27,80 @@ namespace Damas.Dama
         {
             Peca p = Tab.RetirarPeca(origem);
             p.ImcrementarMovimentos();
-            Peca pecaCapturada = Tab.RetirarPeca(destino);
             Tab.ColocarPeca(p, destino);
+
+
+
+            int linhaMedia = destino.Linha - origem.Linha;
+            int colunaMedia = destino.Coluna - origem.Coluna;
+
+            if (linhaMedia == -2 && colunaMedia == -2) 
+            {
+                Posicao posP = new Posicao(destino.Linha + 1, destino.Coluna + 1);
+                Peca capturada = Tab.RetirarPeca(posP);
+                Capturadas.Add(capturada);
+            }
+
+            if (linhaMedia == -2 && colunaMedia == 2)
+            {
+                Posicao posP = new Posicao(destino.Linha + 1, destino.Coluna - 1);
+                Peca capturada = Tab.RetirarPeca(posP);
+                Capturadas.Add(capturada);
+            }
+
+            if (linhaMedia == 2 && colunaMedia == -2)
+            {
+                Posicao posP = new Posicao(destino.Linha - 1, destino.Coluna + 1);
+                Peca capturada = Tab.RetirarPeca(posP);
+                Capturadas.Add(capturada);
+            }
+
+            if (linhaMedia == 2 && colunaMedia == 2)
+            {
+                Posicao posP = new Posicao(destino.Linha - 1, destino.Coluna - 1);
+                Peca capturada = Tab.RetirarPeca(posP);
+                Capturadas.Add(capturada);
+            }
+
         }
+
+        
 
         public void RealizaJogada(Posicao origem, Posicao destino)
         {
             ExecutaMovimento(origem, destino);
             Turno++;
             MudaJogador();
+        }
+
+        public HashSet<Peca> PecasCapturadas(Cor cor)
+        {
+            HashSet<Peca> aux = new HashSet<Peca>();
+
+            foreach (Peca x in Capturadas)
+            {
+                if (x.Cor == cor)
+                {
+                    aux.Add(x);
+                }
+            }
+            
+            return aux;
+        }
+
+        public HashSet<Peca> PecasEmJogo(Cor cor)
+        {
+            HashSet<Peca> aux = new HashSet<Peca>();
+
+            foreach (Peca x in Pecas)
+            {
+                if (x.Cor == cor)
+                {
+                    aux.Add(x);
+                }
+            }
+            aux.ExceptWith(PecasCapturadas(cor));
+            return aux;
         }
 
         public void ValidarPosicaoOrigem(Posicao pos)
@@ -71,36 +139,41 @@ namespace Damas.Dama
             }
         }
 
+        public void ColocarNovaPeca(char coluna, int linha, Peca peca)
+        {
+            Tab.ColocarPeca(peca, new PosicaoDama(coluna, linha).ToPosicao());
+            Pecas.Add(peca);
+        }
+
         private void ColocarPecas()
         {
-            // Pecas brancas
-            Tab.ColocarPeca(new Peao(Tab, Cor.Branca), new PosicaoDama('a', 1).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Branca), new PosicaoDama('a', 3).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Branca), new PosicaoDama('b', 2).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Branca), new PosicaoDama('c', 1).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Branca), new PosicaoDama('c', 3).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Branca), new PosicaoDama('d', 2).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Branca), new PosicaoDama('e', 1).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Branca), new PosicaoDama('e', 3).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Branca), new PosicaoDama('f', 2).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Branca), new PosicaoDama('g', 1).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Branca), new PosicaoDama('g', 3).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Branca), new PosicaoDama('h', 2).ToPosicao());
+            // pecas brancas
+            ColocarNovaPeca('a', 1, new Peao(Tab, Cor.Branca));
+            ColocarNovaPeca('a', 3, new Peao(Tab, Cor.Branca));
+            ColocarNovaPeca('b', 2, new Peao(Tab, Cor.Branca));
+            ColocarNovaPeca('c', 1, new Peao(Tab, Cor.Branca));
+            ColocarNovaPeca('c', 3, new Peao(Tab, Cor.Branca));
+            ColocarNovaPeca('d', 2, new Peao(Tab, Cor.Branca));
+            ColocarNovaPeca('e', 1, new Peao(Tab, Cor.Branca));
+            ColocarNovaPeca('e', 3, new Peao(Tab, Cor.Branca));
+            ColocarNovaPeca('f', 2, new Peao(Tab, Cor.Branca));
+            ColocarNovaPeca('g', 1, new Peao(Tab, Cor.Branca));
+            ColocarNovaPeca('g', 3, new Peao(Tab, Cor.Branca));
+            ColocarNovaPeca('h', 2, new Peao(Tab, Cor.Branca));
 
             //Pecas pretas
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('a', 7).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('b', 6).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('b', 8).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('c', 7).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('d', 6).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('d', 8).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('e', 7).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('f', 6).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('f', 8).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('g', 7).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('h', 6).ToPosicao());
-            Tab.ColocarPeca(new Peao(Tab, Cor.Preta), new PosicaoDama('h', 8).ToPosicao());
-
+            ColocarNovaPeca('a', 7, new Peao(Tab, Cor.Preta));
+            ColocarNovaPeca('b', 6, new Peao(Tab, Cor.Preta));
+            ColocarNovaPeca('b', 8, new Peao(Tab, Cor.Preta));
+            ColocarNovaPeca('c', 7, new Peao(Tab, Cor.Preta));
+            ColocarNovaPeca('d', 6, new Peao(Tab, Cor.Preta));
+            ColocarNovaPeca('d', 8, new Peao(Tab, Cor.Preta));
+            ColocarNovaPeca('e', 7, new Peao(Tab, Cor.Preta));
+            ColocarNovaPeca('f', 6, new Peao(Tab, Cor.Preta));
+            ColocarNovaPeca('f', 8, new Peao(Tab, Cor.Preta));
+            ColocarNovaPeca('g', 7, new Peao(Tab, Cor.Preta));
+            ColocarNovaPeca('h', 6, new Peao(Tab, Cor.Preta));
+            ColocarNovaPeca('h', 8, new Peao(Tab, Cor.Preta));
         }
     }
 }

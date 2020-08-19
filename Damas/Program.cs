@@ -19,11 +19,7 @@ namespace Damas
                     try
                     {
                         Console.Clear();
-                        Tela.ImprimeTabuleiro(partida.Tab);
-                        Console.WriteLine();
-                        Console.WriteLine("Turno: " + partida.Turno);
-                        Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
-                        Console.WriteLine();
+                        Tela.ImprimirPartida(partida);
 
 
                         Console.WriteLine();
