@@ -69,8 +69,64 @@ namespace Damas.Dama
         public void RealizaJogada(Posicao origem, Posicao destino)
         {
             ExecutaMovimento(origem, destino);
-            Turno++;
-            MudaJogador();
+
+            Peca p = Tab.Peca(destino);
+
+            if (p is Peao)
+            {
+                if (p.Cor == Cor.Branca && destino.Linha == 0 || p.Cor == Cor.Preta && destino.Linha == 7)
+                {
+                    p.Tab.RetirarPeca(destino);
+                    Pecas.Remove(p);
+                    Peca dama = new Dama(Tab, p.Cor);
+                    Tab.ColocarPeca(dama, destino);
+                    Pecas.Add(dama);
+                }
+            }
+            
+
+            if (FinalizaPartida())
+            {
+                Terminada = true;
+            }
+            else
+            {
+                Terminada = false;
+                Turno++;
+                MudaJogador();
+            }
+        }
+
+        public bool FinalizaPartida()
+        {
+            int contBranca = 0;
+            int contPreta = 0;
+
+            for (int i = 0; i < Tab.Linhas; i++)
+            {
+                for (int j = 0; j < Tab.Colunas; j++)
+                {
+                    Posicao posicao = new Posicao(i, j);
+
+                    if (Tab.Peca(posicao) != null && Tab.Peca(posicao).Cor == Cor.Branca)
+                    {
+                        contBranca += 1;
+                    }
+
+                    if (Tab.Peca(posicao) != null && Tab.Peca(posicao).Cor == Cor.Preta)
+                    {
+                        contPreta += 1;
+                    }
+                }
+            }
+
+            if (contBranca == 0 || contPreta == 0)
+            {
+                return true;
+
+            }
+            return false;
+
         }
 
         public HashSet<Peca> PecasCapturadas(Cor cor)
@@ -162,7 +218,7 @@ namespace Damas.Dama
             ColocarNovaPeca('h', 2, new Peao(Tab, Cor.Branca));
 
             //Pecas pretas
-            ColocarNovaPeca('a', 7, new Peao(Tab, Cor.Preta));
+            ColocarNovaPeca('b', 2, new Peao(Tab, Cor.Preta));
             ColocarNovaPeca('b', 6, new Peao(Tab, Cor.Preta));
             ColocarNovaPeca('b', 8, new Peao(Tab, Cor.Preta));
             ColocarNovaPeca('c', 7, new Peao(Tab, Cor.Preta));

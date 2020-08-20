@@ -45,6 +45,9 @@ namespace Damas
                         Console.ReadLine();
                     }
                 }
+                Console.WriteLine();
+                Console.WriteLine("FIM DA PARTIDA");
+                Console.WriteLine("GANHADOR: " + partida.JogadorAtual);
 
                 
             }
