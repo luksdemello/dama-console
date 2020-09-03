@@ -218,7 +218,7 @@ namespace Damas.Dama
             ColocarNovaPeca('h', 2, new Peao(Tab, Cor.Branca));
 
             //Pecas pretas
-            ColocarNovaPeca('b', 2, new Peao(Tab, Cor.Preta));
+            ColocarNovaPeca('a', 7, new Peao(Tab, Cor.Preta));
             ColocarNovaPeca('b', 6, new Peao(Tab, Cor.Preta));
             ColocarNovaPeca('b', 8, new Peao(Tab, Cor.Preta));
             ColocarNovaPeca('c', 7, new Peao(Tab, Cor.Preta));
